@@ -6,10 +6,12 @@ Take screen shot
 Feed screen shot to look.py 
 
 # Agents: 
-The orange balls will wonder around but each one has an opinion about the best letter and will be attracted to it. 
+The orange balls will wonder around but each one has an opinion about the best  
+letter and will be attracted to it. 
 
 # look.py
-Python to take a .png and find the most popular letter...    ...Next up? Maybe at this as a series are screen shots to get the idea of 'time'...   
+Python to take a .png and find the most popular letter in the supplied image...      
+Next up? Maybe do this as a series of screen shots to get the idea of 'time'...     
 
 # Findings with this images: 
 python3 look.py   
