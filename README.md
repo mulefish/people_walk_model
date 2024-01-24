@@ -27,6 +27,16 @@ The most popular letter is: B
 ![Letter C](C_template.png )  
 ![Orange Balls](orange_balls.png "Orange Balls Screen shot")  
 
-
-
-
+# Bluetooth RSSI measurments ( See 'BlueTooth.js'): 
+node BlueTooth.js   
+1   RSSI -84 from device GM_PEPS_VKS1  
+2   RSSI -91 from device GM_PEPS_VKS3  
+3   RSSI -92 from device GM_PEPS_VKM  
+4   RSSI -97 from device EKG-db-18-fc  
+5   RSSI -93 from device GM_PEPS_VKS4  
+6   RSSI -95 from device Between 3ANC  
+7   RSSI -96 from device N01NP  
+8   RSSI -97 from device GM_PEPS_VKS2  
+9   RSSI -90 from device NHXU9  
+10   RSSI -94 from device N04ZN  
+Stopped scanning after 10 measurments.  
