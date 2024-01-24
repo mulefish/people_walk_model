@@ -17,7 +17,7 @@ letter and will be attracted to it.
 Python to take a .png and find the most popular letter in the supplied image...      
 Next up? Maybe do this as a series of screen shots to get the idea of 'time'...     
 
-# Findings with this images: 
+# Findings with this image: 
 python3 look.py   
 The most popular letter is: B   
 
