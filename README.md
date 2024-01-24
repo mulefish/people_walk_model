@@ -1,5 +1,9 @@
 # people_walk_model
-generate noise -   
+The orange balls are 'people'. They have some behaviour; the will cluster around  
+one of the letters.  The file 'look.py' will attempt to determine which letter is  
+most popular. 
+
+# run it
 node server  
 localhost:3000/
 Take screen shot 
