@@ -16,10 +16,10 @@ python3 look.py
 The most popular letter is: B   
 
 # images
-![Orange Balls](orange_balls.png "Orange Balls Screen shot")
-![Letter A](A_template.png)
-![Letter B](B_template.png )
-![Letter C](C_template.png )
+![Letter A](A_template.png )  
+![Letter B](B_template.png )  
+![Letter C](C_template.png )  
+![Orange Balls](orange_balls.png "Orange Balls Screen shot")  
 
 
 
