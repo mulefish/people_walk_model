@@ -6,8 +6,10 @@ most popular.
 # run it
 node server  
 localhost:3000/
-Take screen shot 
-Feed screen shot to look.py 
+
+# first pass
+node server  
+localhost:3000/test.html
 
 # Agents: 
 The orange balls will wonder around but each one has an opinion about the best  
