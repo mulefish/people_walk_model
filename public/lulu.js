@@ -1,79 +1,202 @@
 
 let agents = [];
-let numAgents = 10; // Number of agents you want
-let numSteps = 60; // Number of steps the agents will take
+let numAgents = 10;
+let numSteps = 60;
+let canvas = document.getElementById("myCanvas");
+let ctx = canvas.getContext("2d");
+const maxSpeed = 6; // Maximum speed for the balls
 
-// Initialize agents with random positions
+let img = new Image();
+
+
+
 function initAgents() {
     for (let i = 0; i < numAgents; i++) {
         agents.push({
             x: Math.random() * canvas.width,
             y: Math.random() * canvas.height,
-            dx: Math.random() * 4 - 2, // Speed in x direction
-            dy: Math.random() * 4 - 2, // Speed in y direction
+            dx: Math.random() * 4 - 2,
+            dy: Math.random() * 4 - 2,
+            speedX: Math.random() * 10 - 5,
+            speedY: Math.random() * 10 - 5,    
+            number: i,
+            positionFitting: Math.random(),
+            positionMen: Math.random(),
+            positionWomen: Math.random(),
+            positionCheckout: Math.random()
+
         });
+    }
+    // console.log( JSON.stringify( agents, null, 2 ))
+}
+
+function applyAttraction(obj, target, attractionWeight) {
+    let dirX = target.x - obj.x;
+    let dirY = target.y - obj.y;
+    let length = Math.sqrt(dirX * dirX + dirY * dirY);
+    dirX /= length;
+    dirY /= length;
+
+    // Increase the attraction effect
+    obj.speedX += dirX * attractionWeight * 0.5;
+    obj.speedY += dirY * attractionWeight * 0.5;
+    
+    // Limit the speed to maxSpeed
+    let speed = Math.sqrt(obj.speedX * obj.speedX + obj.speedY * obj.speedY);
+    if (speed > maxSpeed) {
+        obj.speedX = (obj.speedX / speed) * maxSpeed;
+        obj.speedY = (obj.speedY / speed) * maxSpeed;
     }
 }
 
-// Update the position of each agent and draw it
+
+///
+
+
+    // Determine the favorite letter based on highest attraction
+//     let maxAttraction = Math.max(obj.attractionToA, obj.attractionToB, obj.attractionToC);
+//     let target;
+//     if (maxAttraction === obj.positionFitting) {
+//         target = positionFitting;
+//     } else if (maxAttraction === obj.positionMen) {
+//         target = positionMen;
+//     } else if (maxAttraction === obj.positionWomen) {
+//         target = positionWomen;
+//     } else {
+//         target = positionCheckout;
+//     }
+
+//     // // Draw a line to the favorite letter
+//     // context.beginPath();
+//     // context.moveTo(obj.x, obj.y);
+//     // context.lineTo(target.x, target.y);
+//     // context.strokeStyle = 'gray';
+//     // context.stroke();
+
+//     if (obj.x <= 0 || obj.x >= canvas.width) {
+//         obj.speedX = -obj.speedX;
+//     }
+//     if (obj.y <= 0 || obj.y >= canvas.height) {
+//         obj.speedY = -obj.speedY;
+//     }
+
+//     obj.x += obj.speedX;
+//     obj.y += obj.speedY;
+
+//     ctx.beginPath();
+//     ctx.arc(obj.x, obj.y, 10, 0, 2 * Math.PI);
+//     ctx.fillStyle = 'orange';
+//     ctx.fill();
+
+//     ctx.font = '10px Arial';
+//     ctx.fillStyle = 'white';
+//     ctx.textAlign = 'center';
+//     ctx.textBaseline = 'middle';
+//     ctx.fillText(obj.number, obj.x, obj.y);
+// });
+///
+
 function updateAgents() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
-    ctx.drawImage(img, 0, 0); // Redraw the background image
-    drawGrids(); // Redraw the grids
-
+    ctx.clearRect(0, 0, canvas.width, canvas.height); 
+    ctx.drawImage(img, 0, 0); 
+    drawGrids();
+    
     agents.forEach(agent => {
-        // Update position
-        agent.x += agent.dx;
-        agent.y += agent.dy;
+        // agent.x += agent.dx;
+        // agent.y += agent.dy;
 
-        // Keep the agent within the canvas bounds
-        if (agent.x < 0 || agent.x > canvas.width) agent.dx *= -1;
-        if (agent.y < 0 || agent.y > canvas.height) agent.dy *= -1;
+        // if (agent.x < 0 || agent.x > canvas.width) agent.dx *= -1;
+        // if (agent.y < 0 || agent.y > canvas.height) agent.dy *= -1;
 
-        // Draw the agent
+        console.log( "BEFORE : " + JSON.stringify( agent ))
+        applyAttraction(agent, positionFitting, agent.positionFitting);
+        applyAttraction(agent, positionMen, agent.positionMen);
+        applyAttraction(agent, positionWomen, agent.positionWomen);
+        applyAttraction(agent, positionCheckout, agent.positionCheckout);
+    
+
+
+        // ctx.beginPath();
+        // ctx.arc(agent.x, agent.y, 20, 0, 2 * Math.PI);
+        // ctx.fillStyle = 'orange';
+        // ctx.fill();
+
+
+        let maxAttraction = Math.max(agent.positionFitting, agent.positionMen, agent.positionWomen);
+        let target;
+        if (maxAttraction === agent.positionFitting) {
+            target = positionFitting;
+        } else if (maxAttraction === agent.positionMen) {
+            target = positionMen;
+        } else if (maxAttraction === agent.positionWomen) {
+            target = positionWomen;
+        } else {
+            target = positionCheckout;
+        }
+    
+        // // Draw a line to the favorite letter
+        // context.beginPath();
+        // context.moveTo(obj.x, obj.y);
+        // context.lineTo(target.x, target.y);
+        // context.strokeStyle = 'gray';
+        // context.stroke();
+    
+        if (agent.x <= 0 || agent.x >= canvas.width) {
+            agent.speedX = -agent.speedX;
+        }
+        if (agent.y <= 0 || agent.y >= canvas.height) {
+            agent.speedY = -agent.speedY;
+        }
+        console.log( "AFTER: " + agent.number + "   " + agent.x + "   " + agent.speedX)
+
+        agent.x += agent.speedX;
+        agent.y += agent.speedY;
+    
         ctx.beginPath();
-        ctx.arc(agent.x, agent.y, 20, 0, 2 * Math.PI); // Draw a circle with radius 5
+        ctx.arc(agent.x, agent.y, 10, 0, 2 * Math.PI);
+//        console.log( agent.number, agent.x, agent.y)
         ctx.fillStyle = 'orange';
         ctx.fill();
+    
+        ctx.font = '10px Arial';
+        ctx.fillStyle = 'white';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(agent.number, agent.x, agent.y);
+
+
     });
 }
 
-// Main function to start the simulation
+
 function startSimulation() {
-
-    console.log( areas )
-
     initAgents();
     let steps = 0;
     let interval = setInterval(() => {
         updateAgents();
         steps++;
         if (steps >= numSteps) clearInterval(interval); // Stop after a certain number of steps
-    }, 100); // Update every 100 milliseconds
+    }, 100);
 }
 
-
-////
-
-let canvas = document.getElementById("myCanvas");
-let ctx = canvas.getContext("2d");
-let img = new Image();
 
 img.onload = function () {
     canvas.width = img.width;
     canvas.height = img.height;
     ctx.drawImage(img, 0, 0);
     drawGrids()
-
     startSimulation();
-
-
 };
 img.src = 'lulustore.png';
 
+const positionFitting = { x: 605, y: 128 };
+const positionMen = { x: 845, y: 161 };
+const positionEntrance = { x: 925, y: 430 };
+const positionCheckout = { x: 780, y: 480 };
+const positionWomen = { x: 605, y: 398 };
+
 let areas = [] 
 function drawGrids() {
-
     ctx.lineWidth = 1;
     ctx.strokeStyle = 'black';
 
@@ -88,8 +211,7 @@ function drawGrids() {
     }
     ctx.fillRect(fitting.x, fitting.y, fitting.w, fitting.h);
 
-
-    ctx.fillStyle = 'rgba(0, 255, 0, 0.2)';
+   ctx.fillStyle = 'rgba(0, 255, 0, 0.2)';
     let men = {
         x: fitting.x + fitting.w,
         y: 28,
@@ -97,7 +219,6 @@ function drawGrids() {
         h: 200 + (fitting.h / 3),
         centerX: 0,
         centerY: 0
-
     }
     ctx.fillRect(men.x, men.y, men.w, men.h);
 
@@ -158,6 +279,4 @@ function drawGrids() {
     areas.push(entrance)
     areas.push(checkout)
     areas.push(women)
-
-
 }
