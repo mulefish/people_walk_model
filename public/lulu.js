@@ -1,34 +1,59 @@
-// var canvas = document.getElementById("myCanvas");
-// var ctx = canvas.getContext("2d");
-// const seventh =  window.innerHeight / 7;
-// canvas.width = 10 + seventh * 7;
-// canvas.height =10 + seventh * 7;
-// var boxSize = seventh// Size of each box
-// var padding = 2;  // Padding between boxes
 
-// // Loop through rows and columns to draw the 6x6 boxes
-// for (var row = 0; row < 6; row++) {
-//     for (var col = 0; col < 6; col++) {
-//         var x = col * (boxSize + padding);
-//         var y = row * (boxSize + padding);
+let agents = [];
+let numAgents = 10; // Number of agents you want
+let numSteps = 60; // Number of steps the agents will take
 
-//         // Draw the box
-//         ctx.beginPath();
-//         ctx.rect(x, y, boxSize, boxSize);
-//         ctx.stroke();
+// Initialize agents with random positions
+function initAgents() {
+    for (let i = 0; i < numAgents; i++) {
+        agents.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            dx: Math.random() * 4 - 2, // Speed in x direction
+            dy: Math.random() * 4 - 2, // Speed in y direction
+        });
+    }
+}
 
-//         // Calculate the number to label the box (starting from 1)
-//         var label = row * 6 + col + 1;
+// Update the position of each agent and draw it
+function updateAgents() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
+    ctx.drawImage(img, 0, 0); // Redraw the background image
+    drawGrids(); // Redraw the grids
 
-//         // Position the label in the center of the box
-//         ctx.font = "16px Arial";
-//         ctx.textAlign = "center";
-//         ctx.textBaseline = "middle";
-//         ctx.fillText(label, x + boxSize / 2, y + boxSize / 2);
-//     }
-// }
+    agents.forEach(agent => {
+        // Update position
+        agent.x += agent.dx;
+        agent.y += agent.dy;
+
+        // Keep the agent within the canvas bounds
+        if (agent.x < 0 || agent.x > canvas.width) agent.dx *= -1;
+        if (agent.y < 0 || agent.y > canvas.height) agent.dy *= -1;
+
+        // Draw the agent
+        ctx.beginPath();
+        ctx.arc(agent.x, agent.y, 20, 0, 2 * Math.PI); // Draw a circle with radius 5
+        ctx.fillStyle = 'orange';
+        ctx.fill();
+    });
+}
+
+// Main function to start the simulation
+function startSimulation() {
+
+    console.log( areas )
+
+    initAgents();
+    let steps = 0;
+    let interval = setInterval(() => {
+        updateAgents();
+        steps++;
+        if (steps >= numSteps) clearInterval(interval); // Stop after a certain number of steps
+    }, 100); // Update every 100 milliseconds
+}
 
 
+////
 
 let canvas = document.getElementById("myCanvas");
 let ctx = canvas.getContext("2d");
@@ -39,10 +64,14 @@ img.onload = function () {
     canvas.height = img.height;
     ctx.drawImage(img, 0, 0);
     drawGrids()
+
+    startSimulation();
+
+
 };
 img.src = 'lulustore.png';
 
-
+let areas = [] 
 function drawGrids() {
 
     ctx.lineWidth = 1;
@@ -121,5 +150,14 @@ function drawGrids() {
     entrance = setCenters(entrance)
     checkout = setCenters(checkout)
     women = setCenters(women)
+
+    
+    areas.push(fitting)
+
+    areas.push(men)
+    areas.push(entrance)
+    areas.push(checkout)
+    areas.push(women)
+
+
 }
-// 
