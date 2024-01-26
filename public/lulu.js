@@ -1,7 +1,7 @@
 
 let agents = [];
-let numAgents = 10;
-let numSteps = 500;
+let numAgents = 6;
+let numSteps = 1000;
 let canvas = document.getElementById("myCanvas");
 let ctx = canvas.getContext("2d");
 const maxSpeed = 6; // Maximum speed for the balls
@@ -51,7 +51,7 @@ function continueSimulation() {
         isSimulationRunning = true;
         interval = setInterval(() => {
             updateAgents();
-        }, 1000);
+        }, 100);
     }
 }
 
@@ -230,7 +230,7 @@ function startSimulation() {
         updateAgents();
         steps++;
         if (steps >= numSteps) clearInterval(interval);
-    }, 250);
+    }, 100);
 }
 
 

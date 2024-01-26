@@ -2,13 +2,26 @@
 <html>
 <head>
     <title>Full Width Canvas</title>
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="lulu.css">
 
 </head>
 <body>
-    <canvas id="myCanvas"></canvas>
-    <hr/>
-    <button id="stepButton" onclick="takeStep()">Take a Step</button>&nbsp;<span id="steps"></span>
-    <script src="index.js"></script>
+    <table border='0'>
+        <tr>
+            <td id="left">
+                <button id="continueButton">Continue sim</button>
+                <h2>Time step: <span id="steps"></span></h2>
+                <h4>F = fitting room zone</h4>
+                <h4>W = Women zone</h4>
+                <h4>M = Men zone</h4>
+                <h4>E = Entrance zone</h4>
+                <h4>C = Checkout</h4>            
+            </td>
+            <td>
+                <canvas id="myCanvas"></canvas>
+            </td>
+        </tr>
+    </table>
+    <script src="lulu.js"></script>
 </body>
 </html>
