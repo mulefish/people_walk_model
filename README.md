@@ -44,5 +44,5 @@ node BlueTooth.js
 Stopped scanning after 10 measurments.  
 
 # screen cap
-![agents](/people.png)
+![agents](people.png)
 
