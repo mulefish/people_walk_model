@@ -1,7 +1,7 @@
 
 let agents = [];
 let numAgents = 6;
-let numSteps = 1000;
+let numSteps = 250;
 let canvas = document.getElementById("myCanvas");
 let ctx = canvas.getContext("2d");
 const maxSpeed = 6;
@@ -43,7 +43,7 @@ function startSimulation() {
 
 
 
-// Function to resume or continue the simulation
+
 function continueSimulation() {
     startTimer()
     if (!isSimulationRunning) {
@@ -64,26 +64,17 @@ function pauseSimulation() {
     }
 }
 
-document.getElementById("continueButton").addEventListener("click", function() {
-    if (isSimulationRunning) {
-        pauseSimulation();
-        this.textContent = 'Continue Simulation'; // Change button text to "Continue Simulation"
-    } else {
-        continueSimulation();
-        this.textContent = 'Pause Simulation'; // Change button text to "Pause Simulation"
-    }
-});
 
 
 function drawLetters() {
     ctx.font = '48px Arial';
-    const myBlack = 'rgba(0, 0, 0, 0.9)';
+    const myBlack = 'rgba(0, 0, 0, 0.3)';
 
     ctx.fillStyle = myBlack
 
     ctx.fillText('F', positionFitting.x, positionFitting.y);
     ctx.fillText('M', positionMen.x, positionMen.y);
-    ctx.fillText('E', positionEntrance.x, positionEntrance.y);
+    ctx.fillText('E', positionEntrance.x - 40, positionEntrance.y);
     ctx.fillText('C', positionCheckout.x, positionCheckout.y);
     ctx.fillText('W', positionWomen.x, positionWomen.y);
 
@@ -95,7 +86,8 @@ img.onload = function () {
     canvas.height = img.height;
     ctx.drawImage(img, 0, 0);
     drawGrids();
-    startSimulation();
+    drawLetters();
+   
 };
 img.src = 'lulustore.png';
 
@@ -153,7 +145,7 @@ function updateAgents() {
     loops++;
     document.getElementById("steps").innerHTML = loops;
     
-    if (Math.random() < 0.05) { // Adjust this probability as needed
+    if (Math.random() < 0.03) {
         addAgentAtEntrance();
     }
 
@@ -302,3 +294,5 @@ function drawGrids() {
     areas.push(checkout)
     areas.push(women)
 }
+
+

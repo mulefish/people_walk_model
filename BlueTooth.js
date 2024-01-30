@@ -11,7 +11,7 @@ let count = 0
 noble.on('discover', peripheral => {
     count++;
     console.log(`${count}   RSSI ${peripheral.rssi} from device ${peripheral.advertisement.localName}`);
-    if (count >= 10) {
+    if (count >= 50) {
       noble.stopScanning();
       console.log('Stopped scanning after 10 measurments.');
       process.exit(0)

@@ -42,3 +42,7 @@ node BlueTooth.js
 9   RSSI -90 from device NHXU9  
 10   RSSI -94 from device N04ZN  
 Stopped scanning after 10 measurments.  
+
+# screen cap
+![agents](/people.png)
+
