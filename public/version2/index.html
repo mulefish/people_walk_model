@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>LuluWave Sim</title>
+    <link rel="stylesheet" href="index.css">
+
+</head>
+
+<body>
+    <table border='0'>
+        <tr>
+            <td id="left">
+                <button onclick="startSimulation()">begin</button>
+                <button onclick="emit()">emit</button>
+                <h2>Time step: <span id="steps"></span></h2>
+                <h4>F = fitting room zone</h4>
+                <h4>W = Women zone</h4>
+                <h4>M = Men zone</h4>
+                <h4>E = Entrance zone</h4>
+                <h4>C = Checkout</h4>
+                <div id="displayArea">00:00:00.000</div>
+            </td>
+            <td>
+                <canvas id="myCanvas"></canvas>
+            </td>
+        </tr>
+    </table>
+    <script src="index.js"></script>
+    <script>
+
+        let startTime, updatedTime, difference, tInterval, running = 0;
+
+        // Function to start the stopwatch
+        function startTimer() {
+            if (!running) {
+                startTime = new Date().getTime();
+                tInterval = setInterval(getShowTime, 1);
+                // Change running state to true
+                running = 1;
+            }
+        }
+
+        // Function to pause the stopwatch
+        function pauseTimer() {
+            if (!difference) {
+                // if timer never started, no need to pause
+            } else if (!running) {
+                startTimer();
+            } else {
+                clearInterval(tInterval);
+                running = 0;
+            }
+        }
+
+        // Function to reset the stopwatch
+        function resetTimer() {
+            clearInterval(tInterval);
+            running = 0;
+            difference = 0;
+            document.getElementById('displayArea').innerHTML = '00:00:00.000';
+        }
+
+        // Function to update the stopwatch display
+        function getShowTime() {
+            updatedTime = new Date().getTime();
+            if (startTime < updatedTime) {
+                difference = updatedTime - startTime;
+            }
+            // Calculating hours, minutes, seconds and milliseconds
+            var hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((difference % (1000 * 60)) / 1000);
+            var milliseconds = Math.floor((difference % (1000 * 60)) / 10);
+
+            // Formatting the display
+            hours = (hours < 10) ? "0" + hours : hours;
+            minutes = (minutes < 10) ? "0" + minutes : minutes;
+            seconds = (seconds < 10) ? "0" + seconds : seconds;
+            milliseconds = (milliseconds < 10) ? "00" + milliseconds : milliseconds < 100 ? "0" + milliseconds : milliseconds;
+
+            document.getElementById('displayArea').innerHTML = hours + ':' + minutes + ':' + seconds + '.' + milliseconds;
+        }
+
+    </script>
+</body>
+
+</html>
